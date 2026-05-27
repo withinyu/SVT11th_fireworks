@@ -1704,11 +1704,15 @@ const FireworkData = {
         return JSON.stringify(value).replace(/</g, "\\u003c");
       }
 
-      function showUniverseUploadError() {
-        const message = "花火暫時沒有成功送入宇宙，請再試一次。";
-        stageStatus.textContent = message;
-        alert(message);
-      }
+     function showUniverseUploadError(error) {
+  console.error("Firestore upload failed:", error);
+
+  const message = "花火暫時沒有成功送入宇宙，請再試一次。";
+  const detail = error?.message || String(error || "");
+
+  stageStatus.textContent = message;
+  alert(detail ? `${message}\n\n錯誤：${detail}` : message);
+}
 
       function openBundledUniverse(runtimeData = {}) {
         const bootScript = `<script>window.__TEAM_SVT_BOOT__=${safeScriptJson(runtimeData)};<` + `/script>`;
@@ -1822,7 +1826,7 @@ const FireworkData = {
         try {
           await FireworkData.save(payload);
         } catch (error) {
-          showUniverseUploadError();
+         showUniverseUploadError(error);
           return;
         }
         openBundledUniverse(runtimeData);
