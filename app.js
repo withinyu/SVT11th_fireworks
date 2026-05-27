@@ -1,15 +1,16 @@
-var UNIVERSE_HTML = "\n<!DOCTYPE html>\n<html lang=\"zh-Hant\">\n<head>\n  <meta charset=\"UTF-8\">\n  <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">\n  <title>共創星空 - THE SAME SKY</title>\n  <link rel=\"stylesheet\" href=\"style.css\">\n</head>\n<body class=\"universe-page\">\n  <div class=\"stars\" aria-hidden=\"true\"></div>\n\n  <div class=\"app\">\n    <main>\n      <section class=\"panel sky-panel\" aria-label=\"共創宇宙\">\n        <div class=\"sky-head\">\n          <div class=\"stat-row\">\n            <span class=\"label\">當前凝聚花火：</span>\n            <span id=\"star-count\" class=\"count\">7 發</span>\n          </div>\n        </div>\n\n        <div class=\"universe-shell\">\n          <canvas id=\"universe-canvas\"></canvas>\n\n          <div id=\"star-card\" class=\"star-card hidden\">\n            <div class=\"star-card-head\">\n              <div>\n                <h2><span id=\"card-title-prefix\">克拉星火</span> #<span id=\"card-id\">0017</span></h2>\n                <small>選曲：<span id=\"card-song\">shining diamond</span></small>\n                <p>「<span id=\"card-blessing\">慶祝一起的 11 週年！</span>」</p>\n              </div>\n              <button id=\"btn-card-close\" class=\"close\" type=\"button\" aria-label=\"關閉\">×</button>\n            </div>\n            <button id=\"btn-card-play\" class=\"btn primary\" type=\"button\">感受這發煙火</button>\n          </div>\n\n          <div id=\"firework-film\" class=\"firework-film\" role=\"dialog\" aria-modal=\"true\" aria-labelledby=\"firework-film-title\">\n            <div class=\"firework-film-panel\">\n              <button id=\"btn-film-close\" class=\"close\" type=\"button\" aria-label=\"關閉\">×</button>\n              <div>\n                <h2 id=\"firework-film-title\" class=\"firework-film-title\">克拉星火</h2>\n                <p id=\"firework-film-caption\" class=\"firework-film-caption\">正在播放這位克拉留下的萬花筒影片。</p>\n              </div>\n              <div class=\"firework-film-stage\">\n                <canvas id=\"firework-film-canvas\" aria-label=\"克拉星火萬花筒影片\"></canvas>\n              </div>\n            </div>\n          </div>\n\n          <div class=\"help-chip\">拖曳可探索星空</div>\n          <div id=\"status-chip\" class=\"status-chip\">點擊任何一個發光點，讀取那位克拉留下的煙火。</div>\n        </div>\n\n        <div class=\"panel-actions\">\n          <button id=\"btn-find-mine\" class=\"btn subtle\" type=\"button\">尋找我的花火</button>\n          <button id=\"btn-add-demo\" class=\"btn primary\" type=\"button\">再點燃一束花火</button>\n        </div>\n      </section>\n    </main>\n  </div>\n\n  <div class=\"site-credit\" aria-label=\"作品署名\">\n    © 2026 SVT 11th Anniversary.<br>\n    Created by WithIN.YU with CARATs\n  </div>\n\n  <script src=\"app.js\" defer></script>\n</body>\n</html>\n\n    ";
+const UNIVERSE_HTML = "\n<!DOCTYPE html>\n<html lang=\"zh-Hant\">\n<head>\n  <meta charset=\"UTF-8\">\n  <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">\n  <title>共創星空 - THE SAME SKY</title>\n  <link rel=\"stylesheet\" href=\"style.css\">\n</head>\n<body class=\"universe-page\">\n  <div class=\"stars\" aria-hidden=\"true\"></div>\n\n  <div class=\"app\">\n    <main>\n      <section class=\"panel sky-panel\" aria-label=\"共創宇宙\">\n        <div class=\"sky-head\">\n          <div class=\"stat-row\">\n            <span class=\"label\">當前凝聚花火：</span>\n            <span id=\"star-count\" class=\"count\">7 發</span>\n          </div>\n        </div>\n\n        <div class=\"universe-shell\">\n          <canvas id=\"universe-canvas\"></canvas>\n\n          <div id=\"star-card\" class=\"star-card hidden\">\n            <div class=\"star-card-head\">\n              <div>\n                <h2><span id=\"card-title-prefix\">克拉星火</span> #<span id=\"card-id\">0017</span></h2>\n                <small>選曲：<span id=\"card-song\">shining diamond</span></small>\n                <p>「<span id=\"card-blessing\">慶祝一起的 11 週年！</span>」</p>\n              </div>\n              <button id=\"btn-card-close\" class=\"close\" type=\"button\" aria-label=\"關閉\">×</button>\n            </div>\n            <button id=\"btn-card-play\" class=\"btn primary\" type=\"button\">感受這發煙火</button>\n          </div>\n\n          <div id=\"firework-film\" class=\"firework-film\" role=\"dialog\" aria-modal=\"true\" aria-labelledby=\"firework-film-title\">\n            <div class=\"firework-film-panel\">\n              <button id=\"btn-film-close\" class=\"close\" type=\"button\" aria-label=\"關閉\">×</button>\n              <div>\n                <h2 id=\"firework-film-title\" class=\"firework-film-title\">克拉星火</h2>\n                <p id=\"firework-film-caption\" class=\"firework-film-caption\">正在播放這位克拉留下的萬花筒影片。</p>\n              </div>\n              <div class=\"firework-film-stage\">\n                <canvas id=\"firework-film-canvas\" aria-label=\"克拉星火萬花筒影片\"></canvas>\n              </div>\n            </div>\n          </div>\n\n          <div class=\"help-chip\">拖曳可探索星空</div>\n          <div id=\"status-chip\" class=\"status-chip\">點擊任何一個發光點，讀取那位克拉留下的煙火。</div>\n        </div>\n\n        <div class=\"panel-actions\">\n          <button id=\"btn-find-mine\" class=\"btn subtle\" type=\"button\">尋找我的花火</button>\n          <button id=\"btn-add-demo\" class=\"btn primary\" type=\"button\">再點燃一束花火</button>\n        </div>\n      </section>\n    </main>\n  </div>\n\n  <div class=\"site-credit\" aria-label=\"作品署名\">\n    © 2026 SVT 11th Anniversary.<br>\n    Created by WithIN.YU with CARATs\n  </div>\n\n  <script src=\"app.js\" defer></script>\n</body>\n</html>\n\n    ";
 
-var FIREBASE_CONFIG = {
-  apiKey: "AIzaSyC_zCuQkAvamflzvictP-oKJiysKtUi47A",
-  authDomain: "svt11th-fireworks.firebaseapp.com",
-  projectId: "svt11th-fireworks",
-  storageBucket: "svt11th-fireworks.firebasestorage.app",
-  messagingSenderId: "807847798837",
-  appId: "1:807847798837:web:e72541585cdc6d04e7297c",
-  measurementId: "G-85XJW30ESE",
+const FIREBASE_CONFIG = {
+  // TODO: 填入 Firebase 專案設定
+  // Firebase Console > Project settings > General > Web API Key
+  apiKey: "YOUR_FIREBASE_WEB_API_KEY",
+  // Firebase Console > Project settings > General > Project ID
+  projectId: "YOUR_FIREBASE_PROJECT_ID",
+  // Firestore collection 名稱，可先維持 fireworks
   collection: "fireworks",
 };
+
+const FIREBASE_SETUP_MESSAGE = "Firebase 尚未設定，請先在 app.js 填入 FIREBASE_CONFIG.apiKey 與 FIREBASE_CONFIG.projectId。";
 
 function isFirebaseConfigured() {
   return Boolean(
@@ -79,10 +80,10 @@ function sanitizeCloudFirework(firework) {
   return safeFirework;
 }
 
-var FireworkData = {
+const FireworkData = {
   async save(firework) {
     if (!isFirebaseConfigured()) {
-      throw new Error("Firebase config is not set.");
+      throw new Error(FIREBASE_SETUP_MESSAGE);
     }
     const response = await fetch(firestoreCollectionUrl(), {
       method: "POST",
@@ -94,28 +95,25 @@ var FireworkData = {
       }),
     });
     if (!response.ok) {
-      throw new Error(`Firestore upload failed: ${response.status}`);
+      const errorText = await response.text();
+      throw new Error(`Firestore upload failed: ${response.status} ${errorText}`);
     }
     return fromFirestoreDocument(await response.json());
   },
   async list() {
-    if (!isFirebaseConfigured()) return [];
-    const fireworks = [];
-    let pageToken = "";
-
-    do {
-      const url = `${firestoreCollectionUrl()}&pageSize=100${pageToken ? `&pageToken=${encodeURIComponent(pageToken)}` : ""}`;
-      const response = await fetch(url);
-      if (!response.ok) {
-        const detail = await response.text().catch(() => "");
-        throw new Error(`Firestore list failed: ${response.status}${detail ? ` ${detail}` : ""}`);
-      }
-      const data = await response.json();
-      fireworks.push(...(data.documents || []).map(fromFirestoreDocument));
-      pageToken = data.nextPageToken || "";
-    } while (pageToken);
-
-    return fireworks.sort((a, b) => String(a.createdAt || "").localeCompare(String(b.createdAt || "")));
+    if (!isFirebaseConfigured()) {
+      console.warn(FIREBASE_SETUP_MESSAGE);
+      return [];
+    }
+    const response = await fetch(`${firestoreCollectionUrl()}&pageSize=100`);
+    if (!response.ok) {
+      const errorText = await response.text();
+      throw new Error(`Firestore list failed: ${response.status} ${errorText}`);
+    }
+    const data = await response.json();
+    return (data.documents || [])
+      .map(fromFirestoreDocument)
+      .sort((a, b) => String(a.createdAt || "").localeCompare(String(b.createdAt || "")));
   },
 };
 
@@ -241,24 +239,22 @@ var FireworkData = {
     }
 
     function makeMyFireworkStar(saved, index) {
-      const id = String(saved.number || saved.id || saved.cloudId || 1315 + index).replace(/^#/, "");
+      const id = String(saved.number || saved.id || 1315 + index).replace(/^#/, "");
       const seed = saved.seed || hashText(`${id}-${saved.song || ""}-${saved.message || ""}`);
       const angle = (seed % 6283) / 1000;
       const distance = 76 + (seed % 290);
       return {
         id,
-        key: String(saved.cloudId || saved.number || saved.id || id),
-        cloudId: saved.cloudId || "",
         x: Math.cos(angle) * distance,
         y: Math.sin(angle) * distance,
         color: saved.color || "#f7b7cf",
-        name: saved.name || `我的花火 #${id}`,
+        name: `我的花火 #${id}`,
         song: saved.song || "SEVENTEEN",
         audio: saved.audio || bootData().audioBySongId?.[saved.songId] || "",
         bpm: saved.bpm || 96,
         bounce: saved.bounce || 1,
         fragments: Array.isArray(saved.fragments) ? saved.fragments : [],
-        blessing: saved.message || saved.blessing || "這是我留下的克拉花火。",
+        blessing: saved.message || "這是我留下的克拉花火。",
         previewImage: saved.previewImage || "",
         seed,
         isMine: true,
@@ -269,7 +265,7 @@ var FireworkData = {
       const stars = fireworks.map((firework, index) => makeMyFireworkStar(firework, index));
       stars.forEach((star) => {
         const starWithOwnership = { ...star, isMine: source === "session" };
-        const existingIndex = loadedStarfires.findIndex((item) => (item.key || item.id) === (starWithOwnership.key || starWithOwnership.id));
+        const existingIndex = loadedStarfires.findIndex((item) => item.id === star.id);
         if (existingIndex >= 0) loadedStarfires[existingIndex] = { ...loadedStarfires[existingIndex], ...starWithOwnership };
         else loadedStarfires.push(starWithOwnership);
       });
@@ -290,13 +286,9 @@ var FireworkData = {
       statusChip.textContent = "正在讀取克拉宇宙星空...";
       try {
         const cloudFireworks = await FireworkData.list();
-        console.log("Loaded fireworks from Firestore:", cloudFireworks);
-        loadedStarfires = [];
         addFireworksToUniverse(cloudFireworks, "cloud");
         statusChip.textContent = "點擊任何一個發光點，讀取那位克拉留下的煙火。";
       } catch (error) {
-        console.error("Failed to load fireworks from Firestore:", error);
-        loadSessionFireworks();
         statusChip.textContent = "暫時無法讀取雲端花火，先顯示本機暫存星火。";
       }
     }
@@ -375,8 +367,8 @@ var FireworkData = {
       uCtx.stroke();
 
       loadedStarfires.forEach((star) => {
-        const isHovered = hoverStar && (hoverStar === star || (hoverStar.key || hoverStar.id) === (star.key || star.id));
-        const isActive = activeStar && (activeStar === star || (activeStar.key || activeStar.id) === (star.key || star.id));
+        const isHovered = hoverStar && hoverStar.id === star.id;
+        const isActive = activeStar && activeStar.id === star.id;
         const size = isActive ? 15 : isHovered ? 12 : 7;
         const pulse = 1.5 + Math.sin(time / 320 + star.x * 0.01) * 0.15;
 
@@ -839,6 +831,7 @@ var FireworkData = {
       resizeTimer = setTimeout(centerUniverse, 120);
     });
 
+    loadSessionFireworks();
     loadCloudFireworks();
     updateStarCount();
     centerUniverse();
@@ -1717,25 +1710,20 @@ var FireworkData = {
         return JSON.stringify(value).replace(/</g, "\\u003c");
       }
 
-     function showUniverseUploadError(error) {
-  console.error("Firestore upload failed:", error);
-
-  const message = "花火暫時沒有成功送入宇宙，請再試一次。";
-  const detail = error?.message || String(error || "");
-
-  stageStatus.textContent = message;
-  alert(detail ? `${message}\n\n錯誤：${detail}` : message);
-}
+      function showUniverseUploadError(error) {
+        console.error("Firework upload failed:", error);
+        const message = "花火暫時沒有成功送入宇宙，請再試一次。";
+        stageStatus.textContent = message;
+        alert(message);
+      }
 
       function openBundledUniverse(runtimeData = {}) {
-  const bootScript = `<script>window.__TEAM_SVT_BOOT__=${safeScriptJson(runtimeData)};<` + `/script>`;
-  const universeHtml = UNIVERSE_HTML
-    .replace("</head>", `${bootScript}\n</head>`);
-
-  document.open();
-  document.write(universeHtml);
-  document.close();
-}
+        const bootScript = `<script>window.__TEAM_SVT_BOOT__=${safeScriptJson(runtimeData)};<` + `/script>`;
+        const universeHtml = UNIVERSE_HTML.replace("</head>", `${bootScript}\n</head>`);
+        document.open();
+        document.write(universeHtml);
+        document.close();
+      }
 
       function readTemporaryFireworkArchive() {
         try {
@@ -1841,7 +1829,7 @@ var FireworkData = {
         try {
           await FireworkData.save(payload);
         } catch (error) {
-         showUniverseUploadError(error);
+          showUniverseUploadError(error);
           return;
         }
         openBundledUniverse(runtimeData);
