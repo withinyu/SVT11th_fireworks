@@ -1716,9 +1716,7 @@ const FireworkData = {
 
       function openBundledUniverse(runtimeData = {}) {
   const bootScript = `<script>window.__TEAM_SVT_BOOT__=${safeScriptJson(runtimeData)};<` + `/script>`;
-
   const universeHtml = UNIVERSE_HTML
-    .replace(/<script[^>]*src=["']?app\.js[^>]*><\/script>/gi, "")
     .replace("</head>", `${bootScript}\n</head>`);
 
   document.open();
