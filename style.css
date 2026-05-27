@@ -201,14 +201,11 @@
       }
 
       .site-credit {
-        position: fixed;
-        left: 50%;
-        bottom: calc(7px + env(safe-area-inset-bottom));
-        z-index: 12;
+        position: relative;
+        z-index: 1;
         width: min(100% - 32px, 560px);
-        margin: 0 auto;
-        padding: 0;
-        transform: translateX(-50%);
+        margin: 10px auto calc(12px + env(safe-area-inset-bottom));
+        padding: 0 0 2px;
         color: rgba(236, 242, 255, 0.43);
         font-size: 0.68rem;
         font-weight: 600;
@@ -1396,14 +1393,11 @@
     }
 
     body.universe-page .site-credit {
-      position: fixed;
-      left: 50%;
-      bottom: calc(7px + env(safe-area-inset-bottom));
+      position: relative;
       z-index: 2;
       width: min(100% - 32px, 560px);
-      margin: 0 auto;
-      padding: 0;
-      transform: translateX(-50%);
+      margin: 10px auto calc(12px + env(safe-area-inset-bottom));
+      padding: 0 0 2px;
       color: rgba(236, 242, 255, 0.43);
       font-size: 0.68rem;
       font-weight: 600;
