@@ -79,7 +79,7 @@ function sanitizeCloudFirework(firework) {
   return safeFirework;
 }
 
-const FireworkData = {
+var FireworkData = {
   async save(firework) {
     if (!isFirebaseConfigured()) {
       throw new Error("Firebase config is not set.");
@@ -100,14 +100,22 @@ const FireworkData = {
   },
   async list() {
     if (!isFirebaseConfigured()) return [];
-    const response = await fetch(`${firestoreCollectionUrl()}&pageSize=100`);
-    if (!response.ok) {
-      throw new Error(`Firestore list failed: ${response.status}`);
-    }
-    const data = await response.json();
-    return (data.documents || [])
-      .map(fromFirestoreDocument)
-      .sort((a, b) => String(a.createdAt || "").localeCompare(String(b.createdAt || "")));
+    const fireworks = [];
+    let pageToken = "";
+
+    do {
+      const url = `${firestoreCollectionUrl()}&pageSize=100${pageToken ? `&pageToken=${encodeURIComponent(pageToken)}` : ""}`;
+      const response = await fetch(url);
+      if (!response.ok) {
+        const detail = await response.text().catch(() => "");
+        throw new Error(`Firestore list failed: ${response.status}${detail ? ` ${detail}` : ""}`);
+      }
+      const data = await response.json();
+      fireworks.push(...(data.documents || []).map(fromFirestoreDocument));
+      pageToken = data.nextPageToken || "";
+    } while (pageToken);
+
+    return fireworks.sort((a, b) => String(a.createdAt || "").localeCompare(String(b.createdAt || "")));
   },
 };
 
@@ -233,22 +241,24 @@ const FireworkData = {
     }
 
     function makeMyFireworkStar(saved, index) {
-      const id = String(saved.number || saved.id || 1315 + index).replace(/^#/, "");
+      const id = String(saved.number || saved.id || saved.cloudId || 1315 + index).replace(/^#/, "");
       const seed = saved.seed || hashText(`${id}-${saved.song || ""}-${saved.message || ""}`);
       const angle = (seed % 6283) / 1000;
       const distance = 76 + (seed % 290);
       return {
         id,
+        key: String(saved.cloudId || saved.number || saved.id || id),
+        cloudId: saved.cloudId || "",
         x: Math.cos(angle) * distance,
         y: Math.sin(angle) * distance,
         color: saved.color || "#f7b7cf",
-        name: `我的花火 #${id}`,
+        name: saved.name || `我的花火 #${id}`,
         song: saved.song || "SEVENTEEN",
         audio: saved.audio || bootData().audioBySongId?.[saved.songId] || "",
         bpm: saved.bpm || 96,
         bounce: saved.bounce || 1,
         fragments: Array.isArray(saved.fragments) ? saved.fragments : [],
-        blessing: saved.message || "這是我留下的克拉花火。",
+        blessing: saved.message || saved.blessing || "這是我留下的克拉花火。",
         previewImage: saved.previewImage || "",
         seed,
         isMine: true,
@@ -259,7 +269,7 @@ const FireworkData = {
       const stars = fireworks.map((firework, index) => makeMyFireworkStar(firework, index));
       stars.forEach((star) => {
         const starWithOwnership = { ...star, isMine: source === "session" };
-        const existingIndex = loadedStarfires.findIndex((item) => item.id === star.id);
+        const existingIndex = loadedStarfires.findIndex((item) => (item.key || item.id) === (starWithOwnership.key || starWithOwnership.id));
         if (existingIndex >= 0) loadedStarfires[existingIndex] = { ...loadedStarfires[existingIndex], ...starWithOwnership };
         else loadedStarfires.push(starWithOwnership);
       });
@@ -280,9 +290,13 @@ const FireworkData = {
       statusChip.textContent = "正在讀取克拉宇宙星空...";
       try {
         const cloudFireworks = await FireworkData.list();
+        console.log("Loaded fireworks from Firestore:", cloudFireworks);
+        loadedStarfires = [];
         addFireworksToUniverse(cloudFireworks, "cloud");
         statusChip.textContent = "點擊任何一個發光點，讀取那位克拉留下的煙火。";
       } catch (error) {
+        console.error("Failed to load fireworks from Firestore:", error);
+        loadSessionFireworks();
         statusChip.textContent = "暫時無法讀取雲端花火，先顯示本機暫存星火。";
       }
     }
@@ -361,8 +375,8 @@ const FireworkData = {
       uCtx.stroke();
 
       loadedStarfires.forEach((star) => {
-        const isHovered = hoverStar && hoverStar.id === star.id;
-        const isActive = activeStar && activeStar.id === star.id;
+        const isHovered = hoverStar && (hoverStar === star || (hoverStar.key || hoverStar.id) === (star.key || star.id));
+        const isActive = activeStar && (activeStar === star || (activeStar.key || activeStar.id) === (star.key || star.id));
         const size = isActive ? 15 : isHovered ? 12 : 7;
         const pulse = 1.5 + Math.sin(time / 320 + star.x * 0.01) * 0.15;
 
@@ -825,7 +839,6 @@ const FireworkData = {
       resizeTimer = setTimeout(centerUniverse, 120);
     });
 
-    loadSessionFireworks();
     loadCloudFireworks();
     updateStarCount();
     centerUniverse();
