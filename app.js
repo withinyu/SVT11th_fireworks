@@ -13,35 +13,15 @@ const SONG_AUDIO_BY_ID = {
   dolgodora: "music/dolgodora.mp3",
   headliner: "music/headliner.mp3",
 };
-const SONG_BPM_BY_ID = {
-  "shining-diamond": 108,
-  "very-nice": 122,
-  dolgodora: 82,
-  headliner: 88,
-};
 const SONG_ID_BY_TITLE = {
   "shining diamond": "shining-diamond",
-  "very nice": "very-nice",
+  "VERY NICE": "very-nice",
   "돌고 돌아": "dolgodora",
-  headliner: "headliner",
+  Headliner: "headliner",
 };
 
-function normalizeSongKey(value) {
-  return String(value || "").trim().toLowerCase();
-}
-
-function resolveSongId(songId, songTitle) {
-  return SONG_AUDIO_BY_ID[normalizeSongKey(songId)]
-    ? normalizeSongKey(songId)
-    : SONG_ID_BY_TITLE[normalizeSongKey(songTitle)] || "";
-}
-
 function getSongAudio(songId, songTitle) {
-  return SONG_AUDIO_BY_ID[resolveSongId(songId, songTitle)] || "";
-}
-
-function getSongBpm(songId, songTitle) {
-  return SONG_BPM_BY_ID[resolveSongId(songId, songTitle)] || 96;
+  return SONG_AUDIO_BY_ID[songId] || SONG_AUDIO_BY_ID[SONG_ID_BY_TITLE[songTitle]] || "";
 }
 
 function isFirebaseConfigured() {
@@ -176,11 +156,7 @@ const FireworkData = {
       { id: "0615", x: 330, y: -260, song: "shining diamond", blessing: "願每一個舞台都被粉藍光海接住。", color: "#f7b7cf" },
       { id: "0223", x: -420, y: 210, song: "돌고 돌아", blessing: "繞了一圈，我們還是在同一片天空下。", color: "#9bbcff" },
       { id: "1117", x: 420, y: 80, song: "VERY NICE", blessing: "今天也用最大聲的笑容慶祝你們。", color: "#ffe566" }
-    ].map((star) => ({
-      ...star,
-      audio: getSongAudio(star.songId, star.song),
-      bpm: getSongBpm(star.songId, star.song),
-    }));
+    ];
 
     let universeScale = 1;
     let universeOffsetX = 0;
@@ -288,7 +264,7 @@ const FireworkData = {
         name: `我的花火 #${id}`,
         song: saved.song || "SEVENTEEN",
         audio: saved.audio || bootData().audioBySongId?.[saved.songId] || getSongAudio(saved.songId, saved.song),
-        bpm: saved.bpm || getSongBpm(saved.songId, saved.song),
+        bpm: saved.bpm || 96,
         bounce: saved.bounce || 1,
         fragments: Array.isArray(saved.fragments) ? saved.fragments : [],
         blessing: saved.message || "這是我留下的克拉花火。",
