@@ -104,7 +104,30 @@ function fromFirestoreDocument(document) {
   const data = Object.fromEntries(
     Object.entries(document.fields || {}).map(([key, value]) => [key, fromFirestoreValue(value)])
   );
-  return { cloudId: document.name?.split("/").pop(), ...data };
+
+  const cloudId = document.name?.split("/").pop() || crypto.randomUUID();
+
+  const hash = Array.from(cloudId).reduce((sum, char) => sum + char.charCodeAt(0), 0);
+
+  const x = Number.isFinite(Number(data.x))
+    ? Number(data.x)
+    : Math.cos(hash) * (180 + (hash % 260));
+
+  const y = Number.isFinite(Number(data.y))
+    ? Number(data.y)
+    : Math.sin(hash) * (140 + (hash % 220));
+
+  return {
+    ...data,
+    cloudId,
+    id: data.id || cloudId,
+    x,
+    y,
+    color: data.color || "#f7b7cf",
+    song: data.song || data.songId || data.songTitle || "shining diamond",
+    blessing: data.blessing || data.message || "慶祝一起的 11 週年！",
+    isMine: false,
+  };
 }
 
 function sanitizeCloudFirework(firework) {
