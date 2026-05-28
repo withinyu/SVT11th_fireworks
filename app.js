@@ -420,6 +420,7 @@ const uCtx = universeCanvas ? universeCanvas.getContext("2d") : null;    const s
       uCtx.stroke();
 
       loadedStarfires.forEach((star) => {
+        console.log("drawing star:", star);
         const isHovered = hoverStar && hoverStar.id === star.id;
         const isActive = activeStar && activeStar.id === star.id;
         const size = isActive ? 18 : isHovered ? 14 : 9;
