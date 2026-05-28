@@ -323,15 +323,23 @@ const uCtx = universeCanvas ? universeCanvas.getContext("2d") : null;    const s
     }
 
     async function loadCloudFireworks() {
-      statusChip.textContent = "正在讀取克拉宇宙星空...";
-      try {
-        const cloudFireworks = await FireworkData.list();
-        addFireworksToUniverse(cloudFireworks, "cloud");
-        statusChip.textContent = "點擊任何一個發光點，讀取那位克拉留下的煙火。";
-      } catch (error) {
-        statusChip.textContent = "暫時無法讀取雲端花火，先顯示本機暫存星火。";
-      }
-    }
+  statusChip.textContent = "正在讀取克拉宇宙星空...";
+  try {
+    const cloudFireworks = await FireworkData.list();
+    console.log("cloudFireworks from Firestore:", cloudFireworks);
+
+    addFireworksToUniverse(cloudFireworks, "cloud");
+    console.log("loadedStarfires after add:", loadedStarfires);
+
+    updateStarCount();
+    drawUniverse();
+
+    statusChip.textContent = "點擊任何一個發光點，讀取那位克拉留下的煙火。";
+  } catch (error) {
+    console.error("Failed to load cloud fireworks:", error);
+    statusChip.textContent = "暫時無法讀取雲端花火，先顯示本機暫存星火。";
+  }
+}
 
     function centerUniverse() {
       const size = sizeCanvasToParent(universeCanvas);
