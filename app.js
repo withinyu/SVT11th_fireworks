@@ -153,8 +153,7 @@ const FireworkData = {
   if (document.getElementById("universe-canvas")) {
 
     const universeCanvas = document.getElementById("universe-canvas");
-    const uCtx = universeCanvas.getContext("2d");
-    const starCountSpan = document.getElementById("star-count");
+const uCtx = universeCanvas ? universeCanvas.getContext("2d") : null;    const starCountSpan = document.getElementById("star-count");
     const starCard = document.getElementById("star-card");
     const btnCardClose = document.getElementById("btn-card-close");
     const btnCardPlay = document.getElementById("btn-card-play");
