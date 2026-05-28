@@ -169,13 +169,13 @@ const FireworkData = {
     const statusChip = document.getElementById("status-chip");
 
     let loadedStarfires = [
-      { id: "1711", x: 86, y: 76, song: "shining diamond", blessing: "我們的青春，永遠與十七同頻！", color: "#f7b7cf" },
-      { id: "1004", x: -104, y: 136, song: "돌고 돌아", blessing: "謝謝你們成為我們溫柔的後盾。", color: "#9bbcff" },
-      { id: "0526", x: 42, y: -142, song: "VERY NICE", blessing: "SEVENTEEN 11週年快樂！", color: "#ffd3e2" },
-      { id: "1314", x: -156, y: -58, song: "Headliner", blessing: "一起創造璀璨的風景！", color: "#baf3ff" },
-      { id: "0615", x: 158, y: -118, song: "shining diamond", blessing: "願每一個舞台都被粉藍光海接住。", color: "#f7b7cf" },
-      { id: "0223", x: -172, y: 210, song: "돌고 돌아", blessing: "繞了一圈，我們還是在同一片天空下。", color: "#9bbcff" },
-      { id: "1117", x: 176, y: 18, song: "VERY NICE", blessing: "今天也用最大聲的笑容慶祝你們。", color: "#ffe566" }
+      { id: "1711", x: 200, y: 150, song: "shining diamond", blessing: "我們的青春，永遠與十七同頻！", color: "#f7b7cf" },
+      { id: "1004", x: -150, y: 250, song: "돌고 돌아", blessing: "謝謝你們成為我們溫柔的後盾。", color: "#9bbcff" },
+      { id: "0526", x: 50, y: -200, song: "VERY NICE", blessing: "SEVENTEEN 11週年快樂！", color: "#ffd3e2" },
+      { id: "1314", x: -300, y: -100, song: "Headliner", blessing: "一起創造璀璨的風景！", color: "#baf3ff" },
+      { id: "0615", x: 330, y: -260, song: "shining diamond", blessing: "願每一個舞台都被粉藍光海接住。", color: "#f7b7cf" },
+      { id: "0223", x: -420, y: 210, song: "돌고 돌아", blessing: "繞了一圈，我們還是在同一片天空下。", color: "#9bbcff" },
+      { id: "1117", x: 420, y: 80, song: "VERY NICE", blessing: "今天也用最大聲的笑容慶祝你們。", color: "#ffe566" }
     ].map((star) => ({
       ...star,
       audio: getSongAudio(star.songId, star.song),
@@ -230,18 +230,14 @@ const FireworkData = {
 
     function sizeCanvasToParent(canvas) {
       const rect = canvas.parentElement.getBoundingClientRect();
-      const fallbackWidth = window.innerWidth || document.documentElement.clientWidth || 390;
-      const fallbackHeight = window.innerHeight || document.documentElement.clientHeight || 760;
-      const displayWidth = Math.max(rect.width || 0, fallbackWidth);
-      const displayHeight = Math.max(rect.height || 0, fallbackHeight);
       const ratio = pixelRatio();
-      canvas.width = Math.max(1, Math.floor(displayWidth * ratio));
-      canvas.height = Math.max(1, Math.floor(displayHeight * ratio));
-      canvas.style.width = `${displayWidth}px`;
-      canvas.style.height = `${displayHeight}px`;
+      canvas.width = Math.max(1, Math.floor(rect.width * ratio));
+      canvas.height = Math.max(1, Math.floor(rect.height * ratio));
+      canvas.style.width = `${rect.width}px`;
+      canvas.style.height = `${rect.height}px`;
       const ctx = canvas.getContext("2d");
       ctx.setTransform(ratio, 0, 0, ratio, 0, 0);
-      return { width: displayWidth, height: displayHeight };
+      return { width: rect.width, height: rect.height };
     }
 
     function sizeFilmCanvas() {
@@ -335,10 +331,11 @@ const FireworkData = {
     }
 
     function centerUniverse() {
-      const size = sizeCanvasToParent(universeCanvas);
-      universeOffsetX = size.width / 2;
-      universeOffsetY = size.height / 2;
-      universeScale = size.width < 520 ? 0.86 : 1;
+      sizeCanvasToParent(universeCanvas);
+      const rect = universeCanvas.getBoundingClientRect();
+      universeOffsetX = rect.width / 2;
+      universeOffsetY = rect.height / 2;
+      universeScale = 1;
       hideStarCard();
       statusChip.textContent = "點擊任何一個發光點，讀取那位克拉留下的煙火。";
     }
@@ -409,7 +406,7 @@ const FireworkData = {
       loadedStarfires.forEach((star) => {
         const isHovered = hoverStar && hoverStar.id === star.id;
         const isActive = activeStar && activeStar.id === star.id;
-        const size = isActive ? 18 : isHovered ? 14 : 9;
+        const size = isActive ? 15 : isHovered ? 12 : 7;
         const pulse = 1.5 + Math.sin(time / 320 + star.x * 0.01) * 0.15;
 
         uCtx.save();
