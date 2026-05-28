@@ -7,6 +7,22 @@ var FIREBASE_CONFIG = {
 };
 
 const FIREBASE_SETUP_MESSAGE = "Firebase 尚未設定，請先在 app.js 填入 FIREBASE_CONFIG.apiKey 與 FIREBASE_CONFIG.projectId。";
+const SONG_AUDIO_BY_ID = {
+  "shining-diamond": "music/shining-diamond.mp3",
+  "very-nice": "music/very-nice.mp3",
+  dolgodora: "music/dolgodora.mp3",
+  headliner: "music/headliner.mp3",
+};
+const SONG_ID_BY_TITLE = {
+  "shining diamond": "shining-diamond",
+  "VERY NICE": "very-nice",
+  "돌고 돌아": "dolgodora",
+  Headliner: "headliner",
+};
+
+function getSongAudio(songId, songTitle) {
+  return SONG_AUDIO_BY_ID[songId] || SONG_AUDIO_BY_ID[SONG_ID_BY_TITLE[songTitle]] || "";
+}
 
 function isFirebaseConfigured() {
   return Boolean(
@@ -235,7 +251,8 @@ const FireworkData = {
     }
 
     function makeMyFireworkStar(saved, index) {
-      const id = String(saved.number || saved.id || 1315 + index).replace(/^#/, "");
+      const rawId = String(saved.number || saved.id || 1315 + index).replace(/^#/, "");
+      const id = rawId.length >= 4 && rawId.length <= 5 ? rawId : String(10000 + (hashText(rawId) % 90000));
       const seed = saved.seed || hashText(`${id}-${saved.song || ""}-${saved.message || ""}`);
       const angle = (seed % 6283) / 1000;
       const distance = 76 + (seed % 290);
@@ -246,7 +263,7 @@ const FireworkData = {
         color: saved.color || "#f7b7cf",
         name: `我的花火 #${id}`,
         song: saved.song || "SEVENTEEN",
-        audio: saved.audio || bootData().audioBySongId?.[saved.songId] || "",
+        audio: saved.audio || bootData().audioBySongId?.[saved.songId] || getSongAudio(saved.songId, saved.song),
         bpm: saved.bpm || 96,
         bounce: saved.bounce || 1,
         fragments: Array.isArray(saved.fragments) ? saved.fragments : [],
@@ -1745,7 +1762,17 @@ const FireworkData = {
 
       function getReservedFireworkNumber() {
         if (!state.reservedFireworkNumber) {
-          state.reservedFireworkNumber = `${String(Date.now()).slice(-6)}${Math.floor(10 + Math.random() * 90)}`;
+          const archive = readTemporaryFireworkArchive();
+          const used = new Set(
+            archive
+              .map((item) => String(item.number || item.id || "").replace(/\D/g, ""))
+              .filter(Boolean)
+          );
+          let candidate = "";
+          do {
+            candidate = String(10000 + Math.floor(Math.random() * 90000));
+          } while (used.has(candidate));
+          state.reservedFireworkNumber = candidate;
         }
         return state.reservedFireworkNumber;
       }
