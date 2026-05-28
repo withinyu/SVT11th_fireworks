@@ -1,4 +1,4 @@
-var UNIVERSE_HTML = "\n<!DOCTYPE html>\n<html lang=\"zh-Hant\">\n<head>\n  <meta charset=\"UTF-8\">\n  <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">\n  <title>共創星空 - THE SAME SKY</title>\n  <link rel=\"stylesheet\" href=\"style.css\">\n</head>\n<body class=\"universe-page\">\n  <div class=\"stars\" aria-hidden=\"true\"></div>\n\n  <div class=\"app\">\n    <main>\n      <section class=\"panel sky-panel\" aria-label=\"共創宇宙\">\n        <div class=\"sky-head\">\n          <div class=\"stat-row\">\n            <span class=\"label\">當前凝聚花火：</span>\n            <span id=\"star-count\" class=\"count\">7 發</span>\n          </div>\n        </div>\n\n        <div class=\"universe-shell\">\n          <canvas id=\"universe-canvas\"></canvas>\n\n          <div id=\"star-card\" class=\"star-card hidden\">\n            <div class=\"star-card-head\">\n              <div>\n                <h2><span id=\"card-title-prefix\">克拉星火</span> #<span id=\"card-id\">0017</span></h2>\n                <small>選曲：<span id=\"card-song\">shining diamond</span></small>\n                <p>「<span id=\"card-blessing\">慶祝一起的 11 週年！</span>」</p>\n              </div>\n              <button id=\"btn-card-close\" class=\"close\" type=\"button\" aria-label=\"關閉\">×</button>\n            </div>\n            <button id=\"btn-card-play\" class=\"btn primary\" type=\"button\">感受這發煙火</button>\n          </div>\n\n          <div id=\"firework-film\" class=\"firework-film\" role=\"dialog\" aria-modal=\"true\" aria-labelledby=\"firework-film-title\">\n            <div class=\"firework-film-panel\">\n              <button id=\"btn-film-close\" class=\"close\" type=\"button\" aria-label=\"關閉\">×</button>\n              <div>\n                <h2 id=\"firework-film-title\" class=\"firework-film-title\">克拉星火</h2>\n                <p id=\"firework-film-caption\" class=\"firework-film-caption\">正在播放這位克拉留下的萬花筒影片。</p>\n              </div>\n              <div class=\"firework-film-stage\">\n                <canvas id=\"firework-film-canvas\" aria-label=\"克拉星火萬花筒影片\"></canvas>\n              </div>\n            </div>\n          </div>\n\n          <div class=\"help-chip\">拖曳可探索星空</div>\n          <div id=\"status-chip\" class=\"status-chip\">點擊任何一個發光點，讀取那位克拉留下的煙火。</div>\n        </div>\n\n        <div class=\"panel-actions\">\n          <button id=\"btn-find-mine\" class=\"btn subtle\" type=\"button\">尋找我的花火</button>\n          <button id=\"btn-add-demo\" class=\"btn primary\" type=\"button\">再點燃一束花火</button>\n        </div>\n      </section>\n    </main>\n  </div>\n\n  <div class=\"site-credit\" aria-label=\"作品署名\">\n    © 2026 SVT 11th Anniversary.<br>\n    Created by WithIN.YU with CARATs\n  </div>\n\n \n</body>\n</html>\n\n    ";
+const UNIVERSE_HTML = "\n<!DOCTYPE html>\n<html lang=\"zh-Hant\">\n<head>\n  <meta charset=\"UTF-8\">\n  <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">\n  <title>共創星空 - THE SAME SKY</title>\n  <link rel=\"stylesheet\" href=\"style.css\">\n</head>\n<body class=\"universe-page\">\n  <div class=\"stars\" aria-hidden=\"true\"></div>\n\n  <div class=\"app\">\n    <main>\n      <section class=\"panel sky-panel\" aria-label=\"共創宇宙\">\n        <div class=\"sky-head\">\n          <div class=\"stat-row\">\n            <span class=\"label\">當前凝聚花火：</span>\n            <span id=\"star-count\" class=\"count\">7 發</span>\n          </div>\n        </div>\n\n        <div class=\"universe-shell\">\n          <canvas id=\"universe-canvas\"></canvas>\n\n          <div id=\"star-card\" class=\"star-card hidden\">\n            <div class=\"star-card-head\">\n              <div>\n                <h2><span id=\"card-title-prefix\">克拉星火</span> #<span id=\"card-id\">0017</span></h2>\n                <small>選曲：<span id=\"card-song\">shining diamond</span></small>\n                <p>「<span id=\"card-blessing\">慶祝一起的 11 週年！</span>」</p>\n              </div>\n              <button id=\"btn-card-close\" class=\"close\" type=\"button\" aria-label=\"關閉\">×</button>\n            </div>\n            <button id=\"btn-card-play\" class=\"btn primary\" type=\"button\">感受這發煙火</button>\n          </div>\n\n          <div id=\"firework-film\" class=\"firework-film\" role=\"dialog\" aria-modal=\"true\" aria-labelledby=\"firework-film-title\">\n            <div class=\"firework-film-panel\">\n              <button id=\"btn-film-close\" class=\"close\" type=\"button\" aria-label=\"關閉\">×</button>\n              <div>\n                <h2 id=\"firework-film-title\" class=\"firework-film-title\">克拉星火</h2>\n                <p id=\"firework-film-caption\" class=\"firework-film-caption\">正在播放這位克拉留下的萬花筒影片。</p>\n              </div>\n              <div class=\"firework-film-stage\">\n                <canvas id=\"firework-film-canvas\" aria-label=\"克拉星火萬花筒影片\"></canvas>\n              </div>\n            </div>\n          </div>\n\n          <div class=\"help-chip\">拖曳可探索星空</div>\n          <div id=\"status-chip\" class=\"status-chip\">點擊任何一個發光點，讀取那位克拉留下的煙火。</div>\n        </div>\n\n        <div class=\"panel-actions\">\n          <button id=\"btn-find-mine\" class=\"btn subtle\" type=\"button\">尋找我的花火</button>\n          <button id=\"btn-add-demo\" class=\"btn primary\" type=\"button\">再點燃一束花火</button>\n        </div>\n      </section>\n    </main>\n  </div>\n\n  <div class=\"site-credit\" aria-label=\"作品署名\">\n    © 2026 SVT 11th Anniversary.<br>\n    Created by WithIN.YU with CARATs\n  </div>\n\n  <script src=\"app.js\" defer></script>\n</body>\n</html>\n\n    ";
 
 var FIREBASE_CONFIG = {
   apiKey: "AIzaSyC_zCuQkAvamflzvictP-oKJiysKtUi47A",
@@ -7,42 +7,6 @@ var FIREBASE_CONFIG = {
 };
 
 const FIREBASE_SETUP_MESSAGE = "Firebase 尚未設定，請先在 app.js 填入 FIREBASE_CONFIG.apiKey 與 FIREBASE_CONFIG.projectId。";
-const SONG_AUDIO_BY_ID = {
-  "shining-diamond": "music/shining-diamond.mp3",
-  "very-nice": "music/very-nice.mp3",
-  dolgodora: "music/dolgodora.mp3",
-  headliner: "music/headliner.mp3",
-};
-const SONG_BPM_BY_ID = {
-  "shining-diamond": 108,
-  "very-nice": 122,
-  dolgodora: 82,
-  headliner: 88,
-};
-const SONG_ID_BY_TITLE = {
-  "shining diamond": "shining-diamond",
-  "very nice": "very-nice",
-  "돌고 돌아": "dolgodora",
-  headliner: "headliner",
-};
-
-function normalizeSongKey(value) {
-  return String(value || "").trim().toLowerCase();
-}
-
-function resolveSongId(songId, songTitle) {
-  return SONG_AUDIO_BY_ID[normalizeSongKey(songId)]
-    ? normalizeSongKey(songId)
-    : SONG_ID_BY_TITLE[normalizeSongKey(songTitle)] || "";
-}
-
-function getSongAudio(songId, songTitle) {
-  return SONG_AUDIO_BY_ID[resolveSongId(songId, songTitle)] || "";
-}
-
-function getSongBpm(songId, songTitle) {
-  return SONG_BPM_BY_ID[resolveSongId(songId, songTitle)] || 96;
-}
 
 function isFirebaseConfigured() {
   return Boolean(
@@ -104,30 +68,7 @@ function fromFirestoreDocument(document) {
   const data = Object.fromEntries(
     Object.entries(document.fields || {}).map(([key, value]) => [key, fromFirestoreValue(value)])
   );
-
-  const cloudId = document.name?.split("/").pop() || crypto.randomUUID();
-
-  const hash = Array.from(cloudId).reduce((sum, char) => sum + char.charCodeAt(0), 0);
-
-  const x = Number.isFinite(Number(data.x))
-    ? Number(data.x)
-    : Math.cos(hash) * (180 + (hash % 260));
-
-  const y = Number.isFinite(Number(data.y))
-    ? Number(data.y)
-    : Math.sin(hash) * (140 + (hash % 220));
-
-  return {
-    ...data,
-    cloudId,
-    id: data.id || cloudId,
-    x,
-    y,
-    color: data.color || "#f7b7cf",
-    song: data.song || data.songId || data.songTitle || "shining diamond",
-    blessing: data.blessing || data.message || "慶祝一起的 11 週年！",
-    isMine: false,
-  };
+  return { cloudId: document.name?.split("/").pop(), ...data };
 }
 
 function sanitizeCloudFirework(firework) {
@@ -176,7 +117,8 @@ const FireworkData = {
   if (document.getElementById("universe-canvas")) {
 
     const universeCanvas = document.getElementById("universe-canvas");
-const uCtx = universeCanvas ? universeCanvas.getContext("2d") : null;    const starCountSpan = document.getElementById("star-count");
+    const uCtx = universeCanvas.getContext("2d");
+    const starCountSpan = document.getElementById("star-count");
     const starCard = document.getElementById("star-card");
     const btnCardClose = document.getElementById("btn-card-close");
     const btnCardPlay = document.getElementById("btn-card-play");
@@ -191,18 +133,14 @@ const uCtx = universeCanvas ? universeCanvas.getContext("2d") : null;    const s
     const statusChip = document.getElementById("status-chip");
 
     let loadedStarfires = [
-      { id: "1711", x: 86, y: 76, song: "shining diamond", blessing: "我們的青春，永遠與十七同頻！", color: "#f7b7cf" },
-      { id: "1004", x: -104, y: 136, song: "돌고 돌아", blessing: "謝謝你們成為我們溫柔的後盾。", color: "#9bbcff" },
-      { id: "0526", x: 42, y: -142, song: "VERY NICE", blessing: "SEVENTEEN 11週年快樂！", color: "#ffd3e2" },
-      { id: "1314", x: -156, y: -58, song: "Headliner", blessing: "一起創造璀璨的風景！", color: "#baf3ff" },
-      { id: "0615", x: 158, y: -118, song: "shining diamond", blessing: "願每一個舞台都被粉藍光海接住。", color: "#f7b7cf" },
-      { id: "0223", x: -172, y: 210, song: "돌고 돌아", blessing: "繞了一圈，我們還是在同一片天空下。", color: "#9bbcff" },
-      { id: "1117", x: 176, y: 18, song: "VERY NICE", blessing: "今天也用最大聲的笑容慶祝你們。", color: "#ffe566" }
-    ].map((star) => ({
-      ...star,
-      audio: getSongAudio(star.songId, star.song),
-      bpm: getSongBpm(star.songId, star.song),
-    }));
+      { id: "1711", x: 200, y: 150, song: "shining diamond", blessing: "我們的青春，永遠與十七同頻！", color: "#f7b7cf" },
+      { id: "1004", x: -150, y: 250, song: "돌고 돌아", blessing: "謝謝你們成為我們溫柔的後盾。", color: "#9bbcff" },
+      { id: "0526", x: 50, y: -200, song: "VERY NICE", blessing: "SEVENTEEN 11週年快樂！", color: "#ffd3e2" },
+      { id: "1314", x: -300, y: -100, song: "Headliner", blessing: "一起創造璀璨的風景！", color: "#baf3ff" },
+      { id: "0615", x: 330, y: -260, song: "shining diamond", blessing: "願每一個舞台都被粉藍光海接住。", color: "#f7b7cf" },
+      { id: "0223", x: -420, y: 210, song: "돌고 돌아", blessing: "繞了一圈，我們還是在同一片天空下。", color: "#9bbcff" },
+      { id: "1117", x: 420, y: 80, song: "VERY NICE", blessing: "今天也用最大聲的笑容慶祝你們。", color: "#ffe566" }
+    ];
 
     let universeScale = 1;
     let universeOffsetX = 0;
@@ -252,18 +190,14 @@ const uCtx = universeCanvas ? universeCanvas.getContext("2d") : null;    const s
 
     function sizeCanvasToParent(canvas) {
       const rect = canvas.parentElement.getBoundingClientRect();
-      const fallbackWidth = window.innerWidth || document.documentElement.clientWidth || 390;
-      const fallbackHeight = window.innerHeight || document.documentElement.clientHeight || 760;
-      const displayWidth = Math.max(rect.width || 0, fallbackWidth);
-      const displayHeight = Math.max(rect.height || 0, fallbackHeight);
       const ratio = pixelRatio();
-      canvas.width = Math.max(1, Math.floor(displayWidth * ratio));
-      canvas.height = Math.max(1, Math.floor(displayHeight * ratio));
-      canvas.style.width = `${displayWidth}px`;
-      canvas.style.height = `${displayHeight}px`;
+      canvas.width = Math.max(1, Math.floor(rect.width * ratio));
+      canvas.height = Math.max(1, Math.floor(rect.height * ratio));
+      canvas.style.width = `${rect.width}px`;
+      canvas.style.height = `${rect.height}px`;
       const ctx = canvas.getContext("2d");
       ctx.setTransform(ratio, 0, 0, ratio, 0, 0);
-      return { width: displayWidth, height: displayHeight };
+      return { width: rect.width, height: rect.height };
     }
 
     function sizeFilmCanvas() {
@@ -301,8 +235,7 @@ const uCtx = universeCanvas ? universeCanvas.getContext("2d") : null;    const s
     }
 
     function makeMyFireworkStar(saved, index) {
-      const rawId = String(saved.number || saved.id || 1315 + index).replace(/^#/, "");
-      const id = rawId.length >= 4 && rawId.length <= 5 ? rawId : String(10000 + (hashText(rawId) % 90000));
+      const id = String(saved.number || saved.id || 1315 + index).replace(/^#/, "");
       const seed = saved.seed || hashText(`${id}-${saved.song || ""}-${saved.message || ""}`);
       const angle = (seed % 6283) / 1000;
       const distance = 76 + (seed % 290);
@@ -313,8 +246,8 @@ const uCtx = universeCanvas ? universeCanvas.getContext("2d") : null;    const s
         color: saved.color || "#f7b7cf",
         name: `我的花火 #${id}`,
         song: saved.song || "SEVENTEEN",
-        audio: saved.audio || bootData().audioBySongId?.[saved.songId] || getSongAudio(saved.songId, saved.song),
-        bpm: saved.bpm || getSongBpm(saved.songId, saved.song),
+        audio: saved.audio || bootData().audioBySongId?.[saved.songId] || "",
+        bpm: saved.bpm || 96,
         bounce: saved.bounce || 1,
         fragments: Array.isArray(saved.fragments) ? saved.fragments : [],
         blessing: saved.message || "這是我留下的克拉花火。",
@@ -345,36 +278,23 @@ const uCtx = universeCanvas ? universeCanvas.getContext("2d") : null;    const s
       return myFireworks;
     }
 
-   async function loadCloudFireworks() {
-  statusChip.textContent = "正在讀取克拉宇宙星空...";
-  try {
-    const cloudFireworks = await FireworkData.list();
-
-    console.log("cloudFireworks from Firestore:", cloudFireworks);
-    statusChip.textContent = `雲端讀到 ${cloudFireworks.length} 個花火`;
-
-    addFireworksToUniverse(cloudFireworks, "cloud");
-    console.log("loadedStarfires after add:", loadedStarfires);
-
-    updateStarCount();
-    drawUniverse();
-
-    if (cloudFireworks.length > 0) {
-      statusChip.textContent = `雲端讀到 ${cloudFireworks.length} 個花火，點擊發光點查看。`;
-    } else {
-      statusChip.textContent = "雲端目前讀到 0 個花火。";
+    async function loadCloudFireworks() {
+      statusChip.textContent = "正在讀取克拉宇宙星空...";
+      try {
+        const cloudFireworks = await FireworkData.list();
+        addFireworksToUniverse(cloudFireworks, "cloud");
+        statusChip.textContent = "點擊任何一個發光點，讀取那位克拉留下的煙火。";
+      } catch (error) {
+        statusChip.textContent = "暫時無法讀取雲端花火，先顯示本機暫存星火。";
+      }
     }
-  } catch (error) {
-    console.error("Failed to load cloud fireworks:", error);
-    statusChip.textContent = "暫時無法讀取雲端花火，先顯示本機暫存星火。";
-  }
-}
 
     function centerUniverse() {
-      const size = sizeCanvasToParent(universeCanvas);
-      universeOffsetX = size.width / 2;
-      universeOffsetY = size.height / 2;
-      universeScale = size.width < 520 ? 0.86 : 1;
+      sizeCanvasToParent(universeCanvas);
+      const rect = universeCanvas.getBoundingClientRect();
+      universeOffsetX = rect.width / 2;
+      universeOffsetY = rect.height / 2;
+      universeScale = 1;
       hideStarCard();
       statusChip.textContent = "點擊任何一個發光點，讀取那位克拉留下的煙火。";
     }
@@ -443,10 +363,9 @@ const uCtx = universeCanvas ? universeCanvas.getContext("2d") : null;    const s
       uCtx.stroke();
 
       loadedStarfires.forEach((star) => {
-        console.log("drawing star:", star);
         const isHovered = hoverStar && hoverStar.id === star.id;
         const isActive = activeStar && activeStar.id === star.id;
-        const size = isActive ? 18 : isHovered ? 14 : 9;
+        const size = isActive ? 15 : isHovered ? 12 : 7;
         const pulse = 1.5 + Math.sin(time / 320 + star.x * 0.01) * 0.15;
 
         uCtx.save();
@@ -1826,17 +1745,7 @@ const uCtx = universeCanvas ? universeCanvas.getContext("2d") : null;    const s
 
       function getReservedFireworkNumber() {
         if (!state.reservedFireworkNumber) {
-          const archive = readTemporaryFireworkArchive();
-          const used = new Set(
-            archive
-              .map((item) => String(item.number || item.id || "").replace(/\D/g, ""))
-              .filter(Boolean)
-          );
-          let candidate = "";
-          do {
-            candidate = String(10000 + Math.floor(Math.random() * 90000));
-          } while (used.has(candidate));
-          state.reservedFireworkNumber = candidate;
+          state.reservedFireworkNumber = `${String(Date.now()).slice(-6)}${Math.floor(10 + Math.random() * 90)}`;
         }
         return state.reservedFireworkNumber;
       }
