@@ -84,23 +84,7 @@ function fromFirestoreDocument(document) {
   const data = Object.fromEntries(
     Object.entries(document.fields || {}).map(([key, value]) => [key, fromFirestoreValue(value)])
   );
-
-  const cloudId = document.name?.split("/").pop() || String(Date.now());
-  const hash = Array.from(cloudId).reduce((sum, char) => sum + char.charCodeAt(0), 0);
-  const angle = ((hash % 360) * Math.PI) / 180;
-  const radius = 160 + (hash % 260);
-
-  return {
-    ...data,
-    cloudId,
-    id: data.id || cloudId,
-    x: Number.isFinite(Number(data.x)) ? Number(data.x) : Math.cos(angle) * radius,
-    y: Number.isFinite(Number(data.y)) ? Number(data.y) : Math.sin(angle) * radius,
-    color: data.color || "#f7b7cf",
-    song: data.song || data.songId || data.songTitle || "shining diamond",
-    blessing: data.blessing || data.message || "慶祝一起的 11 週年！",
-    isMine: false,
-  };
+  return { cloudId: document.name?.split("/").pop(), ...data };
 }
 
 function sanitizeCloudFirework(firework) {
